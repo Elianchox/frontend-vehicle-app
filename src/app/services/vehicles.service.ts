@@ -18,6 +18,7 @@ export class VehiclesService {
   constructor(private http:HttpClient) { }
 
   getVehicles(){
+    console.log('entro')
     this.http.post<any>(this.URL+"getVehicles", {}).subscribe((data)=>{
       this.$vehiclesData.emit(data.data);
     })

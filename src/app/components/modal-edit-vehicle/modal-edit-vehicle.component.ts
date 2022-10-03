@@ -21,7 +21,7 @@ export class ModalEditVehicleComponent implements OnInit {
     {value: 'Occupied', viewValue: 'Occupied'},
     {value: 'Inactive', viewValue: 'Inactive'},
   ];
-  dataRegister!:RegisterVehicle[];
+  dataRegister:RegisterVehicle[] = [];
 
   myForm = new FormGroup({
     idVehicle: new FormControl('', Validators.required),
@@ -46,25 +46,6 @@ export class ModalEditVehicleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataRegister = [
-      {
-        idRegister:"string",
-        Vehicle_vin:"string",
-        start_date:"string",
-        end_date:"null"
-      },{
-        idRegister:"string",
-        Vehicle_vin:"string",
-        start_date:"string",
-        end_date:"string"
-      },{
-        idRegister:"string",
-        Vehicle_vin:"string",
-        start_date:"string",
-        end_date:"string"
-      }
-    ]
-
     this.vehicleService.getVehicle(this.dataEntrante.idVehicle);
   }
 
