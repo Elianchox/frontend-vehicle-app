@@ -1,0 +1,29 @@
+<div class="w-11/12 sm:w-1/4 min-w-max max-w-xl h-3/5 max-h-4xl bg-zinc-900 flex flex-col border border-sky-500 rounded-3xl p-8">
+
+    <form class="w-full h-full p-2 flex flex-col items-center" [formGroup]="myForm" (submit)="onRegister()">
+        <svg class="w-24  fill-sky-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm288 32c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z"/></svg>
+
+        <div class="flex flex-col items-center my-auto">
+            <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Placa" name="idVehicle" formControlName="idVehicle">
+            <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Marca" name="brand" formControlName="brand">
+            <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Modelo" name="model" formControlName="model">
+            <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="number" placeholder="Puertas" value="" name="doors" formControlName="doors">
+            <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Tipo" name="type" formControlName="type">
+
+            <select class="w-full h-8 my-2 text-center rounded-xl bg-gray-100 cursor-pointer" name="Status" id="" formControlName="status">
+                <option value="" selected disabled>Status</option>
+                <option class="h-8" *ngFor="let status of optionsStatus" [value]="status.value">
+                    {{status.viewValue}}
+                </option>
+            </select>
+
+        </div>
+
+        <div class="mt-auto">
+            <button class="w-28 h-10 mx-2 bg-gray-400 border-2 border-sky-500 rounded-2xl hover:scale-105" (click)="closeModal()">Cancele</button>
+            <button class="w-28 h-10 mx-2  border-2 rounded-2xl {{myForm.status == 'INVALID'?'bg-gray-400 border-gray-800':'bg-emerald-400 border-emerald-800 hover:scale-105'}}" type="submit" [disabled]="myForm.status == 'INVALID'">Accept</button>
+        </div>
+
+    </form>
+
+</div>

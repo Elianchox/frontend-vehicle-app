@@ -1,0 +1,44 @@
+<ul class="w-full h-full flex justify-center flex-wrap">
+    <li
+        class="w-full sm:w-1/4 sm:max-w-xs h-80 m-2 p-4 bg-zinc-800 flex flex-col items-center border rounded-2xl cursor-pointer hover:scale-105 "
+        *ngFor="let vehicle of vehicles"
+        [ngClass]="{
+            'border-emerald-500':vehicle.status=='Available',
+            'border-rose-500':vehicle.status=='Occupied',
+            'border-gray-500':vehicle.status=='Inactive'
+        }"
+        (click)="openModal(vehicle)"
+    >
+        <svg
+            class="w-28"
+            [ngClass]="{
+                'fill-emerald-500':vehicle.status=='Available',
+                'fill-rose-500':vehicle.status=='Occupied',
+                'fill-gray-500':vehicle.status=='Inactive'
+            }"
+            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+        >
+            <path d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm288 32c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z"/>
+        </svg>
+        <div class="w-full h-full py-2 text-lg text-gray-200 flex flex-col justify-center items-center">
+            <p>Placa: <span class="text-gray-400">{{vehicle.idVehicle}}</span></p>
+            <p>Marca: <span class="text-gray-400">{{vehicle.brand}}</span></p>
+            <p>Modelo: <span class="text-gray-400">{{vehicle.model}}</span></p>
+            <p>Puertas: <span class="text-gray-400">{{vehicle.doors}}</span></p>
+            <p>Tipo: <span class="text-gray-400">{{vehicle.type}}</span></p>
+            <p
+                class="w-24 my-auto text-center rounded-2xl text-neutral-900 font-medium"
+                [ngClass]="{
+                    'bg-emerald-500':vehicle.status=='Available',
+                    'bg-rose-500':vehicle.status=='Occupied',
+                    'bg-gray-500':vehicle.status=='Inactive'
+                }"
+            >{{vehicle.status}}</p>
+        </div>
+    </li>
+</ul>
+
+<app-btn-add class="fixed bottom-16 right-2 sm:right-4"></app-btn-add>
+<div class="" *ngIf="modalSwitch == true">
+    <app-modal-edit-vehicle [dataEntrante]="data" class="flex fixed top-0 left-0 w-full h-full items-center justify-center backdrop-blur-sm"></app-modal-edit-vehicle>
+</div>

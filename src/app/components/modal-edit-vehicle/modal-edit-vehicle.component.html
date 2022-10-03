@@ -1,0 +1,116 @@
+<div class="w-full h-5/6 p-8 mx-8 bg-zinc-900 flex border border-sky-500 rounded-3xl ">
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                   <-                                    -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="w-2/6 h-full p-8 flex flex-col items-center" *ngIf="editMode == false">
+        <div
+            *ngIf="data"
+            class="w-full sm:max-w-xs h-80 p-4 m-2 bg-zinc-800 flex flex-col items-center border rounded-2xl"
+            [ngClass]="{
+                'border-emerald-500':data.status=='Available',
+                'border-rose-500':data.status=='Occupied',
+                'border-gray-500':data.status=='Inactive'
+            }"
+        >
+            <svg
+                class="w-24  fill-rose-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                [ngClass]="{
+                    'fill-emerald-500':data.status=='Available',
+                    'fill-rose-500':data.status=='Occupied',
+                    'fill-gray-500':data.status=='Inactive'
+                }"
+            ><path d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm288 32c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z"/></svg>
+            <div class="w-full h-full py-2 text-lg text-gray-200 flex flex-col justify-center items-center">
+                <p>Placa: <span class="text-gray-400">{{data.idVehicle}}</span></p>
+                <p>Marca: <span class="text-gray-400">{{data.brand}}</span></p>
+                <p>Modelo: <span class="text-gray-400">{{data.model}}</span></p>
+                <p>Puertas: <span class="text-gray-400">{{data.doors}}</span></p>
+                <p>Tipo: <span class="text-gray-400">{{data.type}}</span></p>
+                <p
+                    class="w-24 my-auto text-center rounded-2xl text-neutral-900 font-semibold"
+                    [ngClass]="{
+                        'bg-emerald-500':data.status=='Available',
+                        'bg-rose-500':data.status=='Occupied',
+                        'bg-gray-500':data.status=='Inactive'
+                    }"
+                >
+                    {{data.status}}
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-auto w-full">
+            <button class="w-24 h-10 mx-2 bg-gray-400 border-2 border-sky-500 rounded-2xl hover:scale-105" (click)="closeModal()">Close</button>
+            <button class="w-24 h-10 mx-2 bg-sky-400 border-2 border-emerald-800 rounded-2xl hover:scale-105" (click)="openEdit(data)">Edit</button>
+        </div>
+
+    </div>
+
+    <form
+        class="w-2/6 h-full p-8 flex flex-col items-center" *ngIf="editMode == true"
+        [formGroup]="myForm"
+        (submit)="onRegister()"
+    >
+        <div
+            *ngIf="data.idVehicle"
+            class="w-full sm:max-w-xs h-3/5 p-4 m-2 bg-zinc-800 flex flex-col items-center border rounded-2xl"
+            [ngClass]="{
+                'border-emerald-500':data.status=='Available',
+                'border-rose-500':data.status=='Occupied',
+                'border-gray-500':data.status=='Inactive'
+            }"
+        >
+            <svg
+                class="w-24  fill-rose-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+                [ngClass]="{
+                    'fill-emerald-500':data.status=='Available',
+                    'fill-rose-500':data.status=='Occupied',
+                    'fill-gray-500':data.status=='Inactive'
+                }"
+            ><path d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288c0-17.7-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32s32-14.3 32-32zm288 32c17.7 0 32-14.3 32-32s-14.3-32-32-32s-32 14.3-32 32s14.3 32 32 32z"/></svg>
+            <div class="w-9/12 h-full pt-4 text-lg flex flex-col justify-center items-center">
+                <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Placa" formControlName="idVehicle">
+                <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Marca" formControlName="brand">
+                <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Modelo" formControlName="model">
+                <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="number" placeholder="Puertas" formControlName="doors">
+                <input class="my-2 w-52 h-8 text-center rounded-xl bg-gray-100" type="text" placeholder="Tipo" formControlName="type">
+                <input class="hidden" type="text" formControlName="id">
+                <!-- <mat-label>Status</mat-label> -->
+                <mat-select class="my-2  w-8 h-8 text-center rounded-xl bg-gray-100" name="Status" id="" [(value)]="data.status" formControlName="status">
+                    <mat-option *ngFor="let status of optionsStatus" [value]="status.value">
+                        {{status.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </div>
+        </div>
+
+        <div class="mt-auto flex flex-col items-center">
+            <button class="w-2/3 h-10 mx-2 bg-rose-600 border border-rose-500 rounded-2xl hover:scale-105 text-gray-100" *ngIf="data.idVehicle" (click)="deleteData(data.idVehicle)">DELETE</button>
+            <div class="flex w-full mx-2 mt-2 items-center justify-center">
+                <button class="w-28 h-10 mx-2 bg-gray-400 border border-gray-700 rounded-2xl hover:scale-105" (click)="cancelEdit()">Cancele</button>
+            <button class="w-28 h-10 mx-2 border rounded-2xl {{myForm.status == 'INVALID'?'bg-gray-400 border-gray-800':'bg-emerald-400 border-emerald-800 hover:scale-105'}}" type="submit">Done</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- ----------------------------------------------------------------------- -->
+    <!--                                   ->                                    -->
+    <!-- ----------------------------------------------------------------------- -->
+    <div class="w-full h-full p-8 bg-neutral-900 border border-black rounded-3xl flex flex-wrap content-start overflow-y-auto">
+        <div
+            *ngFor="let register of dataRegister"
+            class="{{register.end_date==null ? 'border-emerald-500 text-emerald-500' : 'border-rose-500 text-rose-500'}} w-56 h-80 m-2 bg-zinc-800 p-4 flex flex-col justify-center items-center text-start border rounded-3xl border-emerald-500"
+        >
+            <svg class="w-14 h-14 m-2 {{register.end_date==null ? 'fill-emerald-500' : 'fill-rose-500'}}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M128 0c17.7 0 32 14.3 32 32V64H288V32c0-17.7 14.3-32 32-32s32 14.3 32 32V64h48c26.5 0 48 21.5 48 48v48H0V112C0 85.5 21.5 64 48 64H96V32c0-17.7 14.3-32 32-32zM0 192H448V464c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V192zm64 80v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm128 0v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H208c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V272c0-8.8-7.2-16-16-16H336zM64 400v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16zm144-16c-8.8 0-16 7.2-16 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H208zm112 16v32c0 8.8 7.2 16 16 16h32c8.8 0 16-7.2 16-16V400c0-8.8-7.2-16-16-16H336c-8.8 0-16 7.2-16 16z"/></svg>
+            <div class="w-full">
+                <p class="">ID: <span class="text-gray-100">{{register.idRegister}}</span></p>
+                <!-- <p class="">User Id: <span class="text-gray-100">1010129109</span></p> -->
+                <p class="">Vehicle VIN: <span class="text-gray-100">{{register.Vehicle_vin}}</span></p>
+                <p class="">Start Date: <span class="text-gray-100">{{register.start_date}}</span></p>
+                <p class="">End Date: <span class="text-gray-100">{{register.end_date}}</span></p>
+            </div>
+        </div>
+    </div>
+
+</div>
