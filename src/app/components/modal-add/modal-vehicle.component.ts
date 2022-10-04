@@ -13,7 +13,7 @@ import { VehiclesService } from 'src/app/services/vehicles.service';
 })
 export class ModalVehicleComponent implements OnInit {
 
-  validateForm:boolean = false;
+  // validateForm:boolean = false;
   dataVehicle:Vehicles= new Vehicles();
 
   optionsStatus:Status[] = [

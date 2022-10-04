@@ -14,8 +14,9 @@ import { VehiclesService } from 'src/app/services/vehicles.service';
 export class ModalEditVehicleComponent implements OnInit {
   @Input() dataEntrante:any;
   editMode:boolean = false;
-  data!:Vehicles;
-  selectedStatus!: string;
+  deleteCon:boolean = false;
+  data!:any;
+  // selectedStatus!: string;
   optionsStatus:Status[] = [
     {value: 'Available', viewValue: 'Available'},
     {value: 'Occupied', viewValue: 'Occupied'},
@@ -53,19 +54,21 @@ export class ModalEditVehicleComponent implements OnInit {
     this.modalSS.$modalEdit.emit(false);
   }
 
-  openEdit(data:Vehicles){
+  openEdit(data:any){
     this.editMode = true;
-    this.myForm.controls["idVehicle"].setValue(data.idVehicle!)
-    this.myForm.controls["brand"].setValue(data.brand!)
-    this.myForm.controls["model"].setValue(data.model!)
-    this.myForm.controls["doors"].setValue(data.doors?.toString()!)
-    this.myForm.controls["type"].setValue(data.type!)
-    this.myForm.controls["status"].setValue(data.status!)
-    this.myForm.controls["id"].setValue(data.idVehicle!)
+    this.myForm.patchValue(data);
   }
 
   cancelEdit(){
     this.editMode = false;
+  }
+
+  openDelete(){
+    this.deleteCon = true;
+  }
+
+  closeDelete(){
+    this.deleteCon = false;
   }
 
   deleteData(id:string){
@@ -74,12 +77,7 @@ export class ModalEditVehicleComponent implements OnInit {
   }
 
   onRegister(){
-    this.data.idVehicle = this.myForm.value.idVehicle!
-    this.data.brand = this.myForm.value.brand!
-    this.data.model = this.myForm.value.model!
-    this.data.doors = parseInt(this.myForm.value.doors!)
-    this.data.type = this.myForm.value.type!
-    this.data.status = this.myForm.value.status!
+    this.data = this.myForm.getRawValue();
     let id:string = this.myForm.value.id!;
     this.vehicleService.updateVehicle(this.data, id)
     this.editMode = false;

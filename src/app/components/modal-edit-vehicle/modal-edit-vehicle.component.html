@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="mt-auto w-full">
+        <div class="mt-auto w-full flex justify-center items-center">
             <button class="w-24 h-10 mx-2 bg-gray-400 border-2 border-sky-500 rounded-2xl hover:scale-105" (click)="closeModal()">Close</button>
             <button class="w-24 h-10 mx-2 bg-sky-400 border-2 border-emerald-800 rounded-2xl hover:scale-105" (click)="openEdit(data)">Edit</button>
         </div>
@@ -86,9 +86,9 @@
         </div>
 
         <div class="mt-auto flex flex-col items-center">
-            <button class="w-2/3 h-10 mx-2 bg-rose-600 border border-rose-500 rounded-2xl hover:scale-105 text-gray-100" *ngIf="data.idVehicle" (click)="deleteData(data.idVehicle)">DELETE</button>
+            <button class="w-2/3 h-10 mx-2 bg-rose-600 border border-rose-500 rounded-2xl hover:scale-105 text-gray-100" *ngIf="data.idVehicle" (click)="openDelete()">DELETE</button>
             <div class="flex w-full mx-2 mt-2 items-center justify-center">
-                <button class="w-28 h-10 mx-2 bg-gray-400 border border-gray-700 rounded-2xl hover:scale-105" (click)="cancelEdit()">Cancele</button>
+            <button class="w-28 h-10 mx-2 bg-gray-400 border border-gray-700 rounded-2xl hover:scale-105" (click)="cancelEdit()">Cancele</button>
             <button class="w-28 h-10 mx-2 border rounded-2xl {{myForm.status == 'INVALID'?'bg-gray-400 border-gray-800':'bg-emerald-400 border-emerald-800 hover:scale-105'}}" type="submit">Done</button>
             </div>
         </div>
@@ -109,6 +109,16 @@
                 <p class="">Vehicle VIN: <span class="text-gray-100">{{register.Vehicle_vin}}</span></p>
                 <p class="">Start Date: <span class="text-gray-100">{{register.start_date}}</span></p>
                 <p class="">End Date: <span class="text-gray-100">{{register.end_date}}</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full h-full fixed top-0 left-0 backdrop-blur-sm flex justify-center items-center" *ngIf="deleteCon">
+        <div class="w-64 h-36 w-full h-full p-4 pt-6 flex flex-col justify-center items-center text-center bg-zinc-700 text-white rounded-3xl border-4 border-rose-500 z-10">
+            <p>Are you sure to delete?</p>
+            <div class="w-full mt-auto flex">
+                <button class="w-24 h-10 mx-2 bg-gray-400 border border-gray-700 rounded-2xl hover:scale-105" (click)="closeDelete()">Cancele</button>
+                <button class="w-24 h-10 mx-2 bg-rose-600 border border-rose-500 rounded-2xl hover:scale-105 text-gray-100" (click)="deleteData(data.idVehicle)">DELETE</button>
             </div>
         </div>
     </div>
